@@ -10,67 +10,62 @@ export default function CalendarDay({
 }: any) {
   return (
     <motion.button
-      whileHover={{
-        scale: 1.03,
-        y: -5,
-      }}
-      transition={{
-        type: 'spring',
-        stiffness: 200,
+      whileTap={{
+        scale: 0.97,
       }}
       onClick={onClick}
       className={`
-        text-left
         rounded-3xl
-        p-6
-        min-h-[260px]
+        p-4
+        text-left
         bg-gradient-to-br
         ${getLevelColor(day.level)}
-        shadow-2xl
-        relative
-        overflow-hidden
+        shadow-xl
       `}
     >
-      <div className="absolute inset-0 bg-black/10" />
-
-      <div className="relative z-10">
-        <h3 className="text-2xl font-black leading-tight">
-          {day.date}
-        </h3>
-
-        <div className="mt-6">
-          <p className="text-5xl font-black">
-            {day.visitors.toLocaleString()}
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-sm opacity-80">
+            {day.date}
           </p>
 
-          <p className="mt-2 text-lg opacity-90">
-            Visitors
+          <h3 className="text-4xl font-black mt-3">
+            {day.visitors >= 1000
+                ? `${(
+                    day.visitors / 1000
+                    ).toFixed(1)}K`
+                : day.visitors}
+          </h3>
+
+          <p className="opacity-80 mt-1">
+            visitors
           </p>
         </div>
 
-        <div className="mt-8 space-y-3">
-          <div className="flex items-center gap-2">
-            <span>🚢</span>
-
-            <span>
-              {day.ships.length} Ships
-            </span>
+        <div className="text-right">
+          <div className="text-2xl">
+            {day.weather.icon}
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">
-              {day.weather.icon}
-            </span>
-
-            <span>
-              {day.weather.condition}
-            </span>
-
-            <span className="opacity-70">
-              {day.weather.temp}°C
-            </span>
-          </div>
+          <p className="text-sm mt-1">
+            {day.weather.temp}
+            °
+          </p>
         </div>
+      </div>
+
+      <div className="mt-5 flex items-center justify-between text-sm">
+        <span>
+          🚢{' '}
+          {day.ships.length}
+        </span>
+
+        <span>
+          {
+            day.weather
+              .condition
+          }
+        </span>
       </div>
     </motion.button>
   )

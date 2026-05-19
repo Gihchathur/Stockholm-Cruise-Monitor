@@ -8,6 +8,9 @@ import SmartCalendar from '@/components/SmartCalendar'
 import CruiseDrawer from '@/components/CruiseDrawer'
 import CruiseTimeline from '@/components/CruiseTimeline'
 import LoadingScreen from '@/components/LoadingScreen'
+import MobileNav from '@/components/MobileNav'
+import StickyStats from '@/components/StickyStats'
+import QuickDays from '@/components/QuickDays'
 
 import { generateCalendarDays } from '@/lib/calendar'
 
@@ -86,15 +89,28 @@ export default function Home() {
     0
 
   return (
-    <main className="min-h-screen p-6 md:p-10">
-      <Header />
-
-      <SummaryCards
+    <main className="min-h-screen pb-28 px-4 md:px-10 pt-3 md:pt-8 max-w-7xl mx-auto">
+      <StickyStats
         visitors={totalVisitors}
         ships={totalShips}
+        weather={
+          nextCruiseDay?.weather
+        }
       />
 
-      <CruiseTimeline days={days} />
+      <Header />
+
+      <div className="hidden lg:block">
+        <SummaryCards
+          visitors={totalVisitors}
+          ships={totalShips}
+        />
+      </div>
+
+      <QuickDays
+        days={days}
+        onSelect={setSelectedDay}
+      />
 
       <SmartCalendar
         days={days}
@@ -109,6 +125,8 @@ export default function Home() {
           setSelectedDay(null)
         }
       />
+
+      <MobileNav />
     </main>
   )
 }

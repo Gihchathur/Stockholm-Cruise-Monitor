@@ -6,14 +6,20 @@ export default function SmartCalendar({
 }: any) {
   return (
     <div>
-      <h2 className="text-3xl font-black mb-8">
-        Cruise Traffic Calendar
-      </h2>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-2xl font-black">
+          Traffic Forecast
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {days.map((day: any, index: number) => (
+        <p className="text-sm text-slate-400">
+          Next 14 days
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        {days.map((day: any) => (
           <CalendarDay
-            key={index}
+            key={day.date}
             day={day}
             onClick={() =>
               onSelectDay(day)

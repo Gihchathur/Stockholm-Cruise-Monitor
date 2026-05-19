@@ -1,42 +1,62 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #020817;
+  color: rgb(248 250 252);
+  font-family: Arial, Helvetica,
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+button {
+  color: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  min-height: 100vh;
   overflow-x: hidden;
-  color: white;
-
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(59,130,246,0.15),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(168,85,247,0.12),
-      transparent 30%
-    ),
-    #020617;
-
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .glass {
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(15, 23, 42, 0.72);
 
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
 
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid
+    rgba(255, 255, 255, 0.08);
+}
+.glass:hover {
+  background: rgba(15, 23, 42, 0.9);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    0 0 30px rgba(59,130,246,0.15);
 }
 
-.gradient-text {
-  background: linear-gradient(
-    to right,
-    #38bdf8,
-    #818cf8
-  );
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.no-scrollbar {
+  -ms-overflow-style: none;
+
+  scrollbar-width: none;
 }
