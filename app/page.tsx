@@ -11,6 +11,7 @@ import LoadingScreen from '@/components/LoadingScreen'
 import MobileNav from '@/components/MobileNav'
 import StickyStats from '@/components/StickyStats'
 import QuickDays from '@/components/QuickDays'
+import TrafficChart from '@/components/TrafficChart'
 
 import { generateCalendarDays } from '@/lib/calendar'
 
@@ -106,6 +107,8 @@ export default function Home() {
           ships={totalShips}
         />
       </div>
+
+      <TrafficChart days={days} />
 
       <QuickDays
         days={days}
