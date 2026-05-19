@@ -52,32 +52,105 @@ export default function WeatherPage() {
   const [loading, setLoading] =
     useState(true)
 
+  function getCondition(
+    code: number
+    ) {
+    if (
+        [61, 63, 65].includes(
+        code
+        )
+    ) {
+        return 'Rain'
+    }
+
+    if (
+        [1, 2, 3].includes(
+        code
+        )
+    ) {
+        return 'Cloudy'
+    }
+
+    if (code === 0) {
+        return 'Sunny'
+    }
+
+    return 'Windy'
+    }
+
   async function loadData() {
     try {
-      const res = await fetch(
+        const res = await fetch(
         '/api/cruises'
-      )
+        )
 
-      const data =
+        const data =
         await res.json()
 
-      const weatherArray =
-        Object.entries(
-            data.weather || {}
-        ).map(
-            ([date, value]: any) => ({
+        const weather =
+        data.weather
+
+        if (
+        !weather?.daily
+        ) {
+        return
+        }
+
+        const formatted =
+        weather.daily.time.map(
+            (
+            date: string,
+            index: number
+            ) => ({
             date,
-            ...value,
+
+            temp:
+                Math.round(
+                weather.daily
+                    .temperature_2m_max?.[
+                    index
+                ] || 0
+                ),
+
+            feelsLike:
+                Math.round(
+                weather.daily
+                    .temperature_2m_min?.[
+                    index
+                ] || 0
+                ),
+
+            rain: `${
+                weather.daily
+                .precipitation_probability_mean?.[
+                index
+                ] || 0
+            }%`,
+
+            wind: `${
+                weather.daily
+                .wind_speed_10m_max?.[
+                index
+                ] || 0
+            } km/h`,
+
+            condition:
+                getCondition(
+                weather.daily
+                    .weathercode?.[
+                    index
+                ]
+                ),
             })
         )
 
-        setDays(weatherArray)
+        setDays(formatted)
     } catch (error) {
-      console.error(error)
+        console.error(error)
     } finally {
-      setLoading(false)
+        setLoading(false)
     }
-  }
+    }
 
   useEffect(() => {
     loadData()
